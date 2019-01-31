@@ -4,7 +4,7 @@ import brewer2mpl
 import numpy as np
 import matplotlib as mpl
 from matplotlib import cm
-
+from cycler import cycler
 
 
 # Get Set2 from ColorBrewer, a set of colors deemed colorblind-safe and
@@ -18,11 +18,11 @@ from matplotlib import cm
 
 #class Common(object):
 #    def __init__(self):
-set2 = brewer2mpl.get_map('Set2', 'qualitative', 8).mpl_colors
+set2 = brewer2mpl.get_map('Set2', 'qualitative', 8).hex_colors
 
 # Another ColorBrewer scale. This one has nice "traditional" colors like
 # reds and blues
-set1 = brewer2mpl.get_map('Set1', 'qualitative', 9).mpl_colors
+set1 = brewer2mpl.get_map('Set1', 'qualitative', 9).hex_colors
 
 # A colormapcycle for stacked barplots
 stackmaps = [brewer2mpl.get_map('YlGn', 'sequential', 8).mpl_colormap,
@@ -31,7 +31,7 @@ stackmaps = [brewer2mpl.get_map('YlGn', 'sequential', 8).mpl_colormap,
 # This context-decorator makes it possible to change the color cycle inside
 # prettyplotlib without affecting pyplot
 class _pretty:
-    rcParams = {'axes.color_cycle': set2, 'lines.linewidth': .75}
+    rcParams = {'axes.prop_cycle': cycler(color=set2), 'lines.linewidth': .75}
     mpl_contexts = []
 
     def __call__(self, func):
